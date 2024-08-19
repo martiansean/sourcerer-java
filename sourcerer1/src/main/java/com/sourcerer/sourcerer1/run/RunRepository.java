@@ -9,6 +9,8 @@ public interface RunRepository {
 
     Run getHello();
 
+    String[] getRSS();
+
     Optional<Run> findById(Integer id);
 
     void create(Run run);

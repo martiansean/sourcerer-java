@@ -8,6 +8,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -29,6 +32,11 @@ class RunController {
     Run getHello() {
         Run response = runRepository.getHello();
         return response;
+    }
+    
+    @GetMapping("/rss")
+    String[] getRSS() {
+        return runRepository.getRSS();
     }
     
 
