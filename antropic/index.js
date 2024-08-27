@@ -14,6 +14,7 @@ const anthropic = new Anthropic({
     apiKey: process.env.ANTROPIC_KEY,
 });
 
+//ANTROPIC_KEY=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
 
 function ExtractTags(string) {
     return;
