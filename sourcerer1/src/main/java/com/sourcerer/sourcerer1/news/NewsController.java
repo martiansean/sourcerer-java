@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/news")
 class NewsController {
@@ -38,6 +40,10 @@ class NewsController {
         return newsRepository.scrapedArticle(rssUrl);
     }
 
+    @GetMapping("/scrape")
+    List<ScrapedArticle> getScrapedArticles() {
+        return newsRepository.getScrapedArticles();
+    }
     
 
 }

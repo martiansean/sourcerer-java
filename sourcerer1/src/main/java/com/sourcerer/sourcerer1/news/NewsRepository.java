@@ -12,4 +12,6 @@ public interface NewsRepository {
     List<Article> getRSS(RssUrl rssUrl);
 
     ScrapedArticle scrapedArticle(RssUrl rssUrl);
+
+    List<ScrapedArticle> getScrapedArticles();
 }

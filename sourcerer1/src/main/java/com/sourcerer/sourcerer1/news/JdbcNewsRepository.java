@@ -109,4 +109,11 @@ public class JdbcNewsRepository implements NewsRepository {
                     HttpStatus.BAD_REQUEST, "Failed to create article");
         }
     }
+
+    @Override
+    public List<ScrapedArticle> getScrapedArticles() {
+        return jdbcClient.sql("select * from ScrapedArticle")
+                .query(ScrapedArticle.class)
+                .list();
+    }
 }
