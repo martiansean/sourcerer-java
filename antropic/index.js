@@ -32,7 +32,7 @@ app.post('/generate', async (req, res) => {
 
     let response = msg.content[0].text;
     
-    res.json(response);
+    res.json({"response": response});
     
 });
 

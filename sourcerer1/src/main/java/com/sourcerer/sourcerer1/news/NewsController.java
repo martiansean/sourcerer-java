@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/news")
@@ -45,5 +46,12 @@ class NewsController {
         return newsRepository.getScrapedArticles();
     }
     
-
+    @PostMapping("/sentiment")
+    public Analysis analyzeSentiment(@RequestBody Article MyArticle) {
+        SentimentAnalyzer MyAnalyzer = new SentimentAnalyzer();
+        Analysis entity = MyAnalyzer.output(MyArticle);
+        
+        return entity;
+    }
+    
 }

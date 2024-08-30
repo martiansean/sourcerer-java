@@ -7,12 +7,23 @@ import java.net.URI;
 import java.net.URL;
 
 public class SentimentAnalyzer {
+    private String prompt = """
+        Perform a sentiment analysis on the following news article and
+        and output as tags where:
+        
+        <Name>organization or business or entity name</Name>
+        <Sentiment>Positive, negative or neutral</Sentiment>
 
-    public void output() {
+        Do not output anything but the tags. 
+
+        :
+        """;
+
+    public Analysis output(Article news) {
         try {
             // Create URL object
-            URI PyURL = new URI("http://localhost:4000/gpt");
-            URL url = PyURL.toURL();
+            URI ExternalURL = new URI("http://localhost:4000/generate");
+            URL url = ExternalURL.toURL();
 
             // Create connection object
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -27,8 +38,9 @@ public class SentimentAnalyzer {
             // Set request headers
             connection.setRequestProperty("Content-Type", "application/json");
 
+            String promptString = "\"" + prompt + news + "\"";
             // Create request body
-            String requestBody = "{\"key\": \"value\"}"; // Replace with your actual request body
+            String requestBody = "{\"content\": " + promptString + "}"; // Replace with your actual request body
 
             // Write request body to output stream
             OutputStream outputStream = connection.getOutputStream();
@@ -54,13 +66,13 @@ public class SentimentAnalyzer {
             }
             reader.close();
 
-            // Print response
-            System.out.println(response.toString());
-
             // Close connection
             connection.disconnect();
+
+            return new Analysis(response.toString());
         } catch (Exception e) {
             e.printStackTrace();
+            throw new RuntimeException("Error in sentiment analysis");
         }
     }
 }

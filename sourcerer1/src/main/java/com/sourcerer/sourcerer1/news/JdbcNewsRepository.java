@@ -98,7 +98,7 @@ public class JdbcNewsRepository implements NewsRepository {
                     HttpStatus.BAD_REQUEST, "Error "+ ErrorMsg);
         }
 
-        var updated = jdbcClient.sql("INSERT INTO ScrapedArticle(SourceName,content) values(?,?,?)")
+        var updated = jdbcClient.sql("INSERT INTO Scrapedarticle(SourceName,content) values(?,?)")
                 .params(List.of(SourceName, content))
                 .update();
         if (updated == 0) {
@@ -112,8 +112,14 @@ public class JdbcNewsRepository implements NewsRepository {
 
     @Override
     public List<ScrapedArticle> getScrapedArticles() {
-        return jdbcClient.sql("select * from ScrapedArticle")
+        return jdbcClient.sql("select * from scrapedarticle")
                 .query(ScrapedArticle.class)
                 .list();
+    }
+
+    @Override
+    public Analysis analyzeSentiment(Article article) {
+        SentimentAnalyzer MyAnalyzer = new SentimentAnalyzer();
+        return MyAnalyzer.output(article);
     }
 }

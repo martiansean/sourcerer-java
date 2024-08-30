@@ -14,4 +14,6 @@ public interface NewsRepository {
     ScrapedArticle scrapedArticle(RssUrl rssUrl);
 
     List<ScrapedArticle> getScrapedArticles();
+
+    Analysis analyzeSentiment(Article article);
 }
